@@ -23,7 +23,7 @@ export function TransactionSummary({ summary }: { summary?: Summary }) {
   };
 
   return (
-    <Card>
+    <Card className="min-w-0">
       <CardHeader>
         <CardTitle>Totals</CardTitle>
         <CardAction className="text-xs text-muted-foreground">
@@ -37,8 +37,8 @@ export function TransactionSummary({ summary }: { summary?: Summary }) {
           <div
             className={
               values.netCents < 0
-                ? "text-4xl font-semibold tracking-normal text-expense"
-                : "text-4xl font-semibold tracking-normal text-income"
+                ? "break-words text-3xl font-semibold tracking-normal text-expense sm:text-4xl"
+                : "break-words text-3xl font-semibold tracking-normal text-income sm:text-4xl"
             }
           >
             {formatCurrencyFromCents(values.netCents)}

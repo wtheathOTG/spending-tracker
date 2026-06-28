@@ -98,10 +98,10 @@ export function SpendingBreakdown({
       </CardHeader>
       <CardContent className="flex-1 pb-2">
         {chartData.length > 0 ? (
-          <div className="grid">
+          <div className="grid min-w-0">
             <ChartContainer
               config={chartConfig}
-              className="mx-auto h-56 w-56"
+              className="mx-auto h-52 w-full max-w-56 sm:h-56"
             >
               <PieChart>
                 <ChartTooltip
@@ -162,7 +162,7 @@ export function SpendingBreakdown({
                   payload: item,
                 }))}
                 nameKey="category"
-                className="flex-wrap gap-x-3 gap-y-2"
+                className="min-w-0 flex-wrap gap-x-3 gap-y-2"
               />
             </ChartConfigProvider>
           </div>

@@ -118,7 +118,7 @@ export function TransactionDashboard() {
 
   return (
     <main className="min-h-screen">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full min-w-0 max-w-7xl flex-col gap-6 px-3 py-6 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-3">
           <h1 className="min-w-0 text-xl font-semibold sm:text-3xl">
             Spending Tracker
@@ -133,8 +133,8 @@ export function TransactionDashboard() {
           </div>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
-          <aside className="flex min-h-72 flex-col gap-4">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+          <aside className="flex min-w-0 flex-col gap-4">
             <TransactionSummary summary={summary} />
             <SpendingBreakdown transactions={cardTransactions} />
             <MonthlySpend transactions={cardTransactions} />

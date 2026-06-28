@@ -159,7 +159,7 @@ export function MonthlySpend({
         <CardTitle>Monthly Spend</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-64 w-full">
+        <ChartContainer config={chartConfig} className="h-64 w-full min-w-0">
           <BarChart
             accessibilityLayer
             data={chartData}

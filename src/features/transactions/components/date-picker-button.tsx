@@ -22,9 +22,12 @@ export function DatePickerButton({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="justify-start font-normal">
+        <Button
+          variant="outline"
+          className="min-w-0 justify-start font-normal"
+        >
           <CalendarIcon className="size-4" />
-          {date ? formatDateButton(date) : label}
+          <span className="truncate">{date ? formatDateButton(date) : label}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">

@@ -139,7 +139,7 @@ function ChartTooltipContent({
       {items.map((item) => {
         const dataKey = String(item.dataKey ?? item.name ?? "");
         const name = String(item.name ?? "");
-        const label = config[dataKey]?.label ?? config[name]?.label ?? name;
+        const label = config[name]?.label ?? config[dataKey]?.label ?? name;
         const value = item.value;
         const formattedValue =
           valueFormatter?.(value ?? "") ??

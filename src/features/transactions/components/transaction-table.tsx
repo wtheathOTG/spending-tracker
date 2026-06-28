@@ -42,14 +42,14 @@ export function TransactionTable({
 }) {
   if (transactions === undefined) {
     return (
-      <div className="rounded-md border p-6 text-sm text-muted-foreground">
+      <div className="min-w-0 rounded-md border p-6 text-sm text-muted-foreground">
         Loading transactions...
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border">
+    <div className="min-w-0 overflow-x-auto rounded-md border">
       <Table>
         <TableHeader>
           <TableRow>
