@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { formatCurrencyFromCents } from "../utils";
 
 type Summary = {
@@ -17,53 +23,47 @@ export function TransactionSummary({ summary }: { summary?: Summary }) {
   };
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            Income
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-2xl font-semibold text-income">
-          {formatCurrencyFromCents(values.incomeCents)}
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            Expenses
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-2xl font-semibold text-expense">
-          {formatCurrencyFromCents(values.expenseCents)}
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            Net
-          </CardTitle>
-        </CardHeader>
-        <CardContent
-          className={
-            values.netCents < 0
-              ? "text-2xl font-semibold text-expense"
-              : "text-2xl font-semibold text-income"
-          }
-        >
-          {formatCurrencyFromCents(values.netCents)}
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            Count
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-2xl font-semibold">
-          {values.count}
-        </CardContent>
-      </Card>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Totals</CardTitle>
+        <CardAction className="text-xs text-muted-foreground">
+          <span className="font-medium text-foreground">{values.count}</span>{" "}
+          Transactions
+        </CardAction>
+      </CardHeader>
+      <CardContent className="grid gap-5">
+        <div className="grid">
+          <div className="text-sm font-medium text-muted-foreground">Net</div>
+          <div
+            className={
+              values.netCents < 0
+                ? "text-4xl font-semibold tracking-normal text-expense"
+                : "text-4xl font-semibold tracking-normal text-income"
+            }
+          >
+            {formatCurrencyFromCents(values.netCents)}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="grid">
+            <div className="text-xs font-medium text-muted-foreground">
+              Income
+            </div>
+            <div className="text-sm font-semibold text-income">
+              {formatCurrencyFromCents(values.incomeCents)}
+            </div>
+          </div>
+          <div className="grid gap-1">
+            <div className="text-xs font-medium text-muted-foreground">
+              Expenses
+            </div>
+            <div className="text-sm font-semibold text-expense">
+              {formatCurrencyFromCents(values.expenseCents)}
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

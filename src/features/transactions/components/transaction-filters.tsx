@@ -98,7 +98,7 @@ export function TransactionFilters({
   }
 
   return (
-    <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+    <div className="flex flex-col gap-3 xl:flex-row xl:flex-wrap xl:items-center">
       <Tabs
         value={filters.type}
         onValueChange={(value) => onTypeChange(value as Filters["type"])}
@@ -115,13 +115,13 @@ export function TransactionFilters({
           <Button
             type="button"
             variant="outline"
-            className="w-full justify-between font-normal lg:w-52"
+            className="w-full justify-between font-normal sm:w-auto sm:min-w-40 sm:max-w-52"
           >
             <span className="truncate">{getCategoryLabel()}</span>
             <ChevronDown className="size-4 text-muted-foreground" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="lg:w-52">
+        <DropdownMenuContent className="w-52">
           <DropdownMenuItem onSelect={() => onCategoryChange("all")}>
             All Categories
           </DropdownMenuItem>
@@ -178,7 +178,7 @@ export function TransactionFilters({
           )
         }
       >
-        <SelectTrigger className="w-full lg:w-52">
+        <SelectTrigger className="w-full sm:w-auto sm:min-w-36 sm:max-w-48">
           <SelectValue placeholder="Group" />
         </SelectTrigger>
         <SelectContent>
@@ -194,7 +194,7 @@ export function TransactionFilters({
         </SelectContent>
       </Select>
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:flex">
+      <div className="grid gap-2 sm:grid-cols-2 xl:flex">
         <DatePickerButton
           date={filters.fromDate}
           label="From"
@@ -207,7 +207,7 @@ export function TransactionFilters({
         />
       </div>
 
-      <Button variant="ghost" className="lg:ml-auto" onClick={onClear}>
+      <Button variant="ghost" className="xl:ml-auto" onClick={onClear}>
         Clear
       </Button>
     </div>

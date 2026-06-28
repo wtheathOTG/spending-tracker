@@ -26,6 +26,8 @@ import {
   useCategoryMutations,
 } from "@/features/categories/hooks/use-categories";
 import { TransactionFilters } from "./transaction-filters";
+import { MonthlySpend } from "./monthly-spend";
+import { SpendingBreakdown } from "./spending-breakdown";
 import { TransactionSummary } from "./transaction-summary";
 import { TransactionTable } from "./transaction-table";
 import {
@@ -41,6 +43,7 @@ export function TransactionDashboard() {
   const {
     filters,
     queryArgs,
+    cardQueryArgs,
     setTypeFilter,
     setCategoryIds,
     setGroupId,
@@ -50,7 +53,8 @@ export function TransactionDashboard() {
   } = useTransactionFilters();
   const groups = useGroups();
   const transactions = useQuery(api.transactions.list, queryArgs);
-  const summary = useQuery(api.transactions.summary, queryArgs);
+  const cardTransactions = useQuery(api.transactions.list, cardQueryArgs);
+  const summary = useQuery(api.transactions.summary, cardQueryArgs);
   const createTransaction = useMutation(api.transactions.create);
   const updateTransaction = useMutation(api.transactions.update);
   const removeTransaction = useMutation(api.transactions.remove);
@@ -115,9 +119,11 @@ export function TransactionDashboard() {
   return (
     <main className="min-h-screen">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-3xl font-semibold">Spending Tracker</h1>
-          <div className="flex flex-col gap-2 sm:flex-row">
+        <header className="flex items-center justify-between gap-3">
+          <h1 className="min-w-0 text-xl font-semibold sm:text-3xl">
+            Spending Tracker
+          </h1>
+          <div className="flex shrink-0 flex-nowrap items-center gap-2 overflow-x-auto">
             <ThemeToggle />
             <GroupManager />
             <CategoryManager />
@@ -127,27 +133,35 @@ export function TransactionDashboard() {
           </div>
         </header>
 
-        <TransactionSummary summary={summary} />
+        <div className="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+          <aside className="flex min-h-72 flex-col gap-4">
+            <TransactionSummary summary={summary} />
+            <SpendingBreakdown transactions={cardTransactions} />
+            <MonthlySpend transactions={cardTransactions} />
+          </aside>
 
-        <TransactionFilters
-          filters={filters}
-          categories={categories}
-          groups={groups}
-          onTypeChange={setTypeFilter}
-          onCategoryChange={setCategoryIds}
-          onGroupChange={(id) =>
-            setGroupId(id as Id<"groups"> | null | "all")
-          }
-          onFromDateChange={setFromDate}
-          onToDateChange={setToDate}
-          onClear={clearFilters}
-        />
+          <div className="flex min-w-0 flex-col gap-4">
+            <TransactionFilters
+              filters={filters}
+              categories={categories}
+              groups={groups}
+              onTypeChange={setTypeFilter}
+              onCategoryChange={setCategoryIds}
+              onGroupChange={(id) =>
+                setGroupId(id as Id<"groups"> | null | "all")
+              }
+              onFromDateChange={setFromDate}
+              onToDateChange={setToDate}
+              onClear={clearFilters}
+            />
 
-        <TransactionTable
-          transactions={transactions}
-          onOpen={setSelectedTransaction}
-          onDelete={setTransactionToDelete}
-        />
+            <TransactionTable
+              transactions={transactions}
+              onOpen={setSelectedTransaction}
+              onDelete={setTransactionToDelete}
+            />
+          </div>
+        </div>
       </div>
 
       {isCreateOpen ? (

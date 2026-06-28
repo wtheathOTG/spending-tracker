@@ -32,6 +32,18 @@ export function useTransactionFilters() {
     [categoryIds, fromDate, groupId, toDate, type],
   );
 
+  const cardQueryArgs = useMemo(
+    () => ({
+      ...(categoryIds !== "all" ? { categoryIds } : {}),
+      ...(groupId !== "all"
+        ? { groupId: groupId as Id<"groups"> | null }
+        : {}),
+      ...(fromDate ? { fromDate: toStartOfDayTimestamp(fromDate) } : {}),
+      ...(toDate ? { toDate: toEndOfDayTimestamp(toDate) } : {}),
+    }),
+    [categoryIds, fromDate, groupId, toDate],
+  );
+
   function setTypeFilter(nextType: TransactionType | "all") {
     setType(nextType);
   }
@@ -47,6 +59,7 @@ export function useTransactionFilters() {
   return {
     filters: { type, categoryIds, groupId, fromDate, toDate },
     queryArgs,
+    cardQueryArgs,
     setTypeFilter,
     setCategoryIds,
     setGroupId,
